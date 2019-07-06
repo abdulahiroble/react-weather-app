@@ -1,7 +1,10 @@
 import React from "react";
+/* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoffee } from "@fortawesome/free-solid-svg-icons"; */
 
 const Ui = props => {
   const {
+    ButtonDisabled,
     summaryText,
     temperatureText,
     dewPointText,
@@ -13,10 +16,8 @@ const Ui = props => {
     windGustText,
     windSpeedText,
     spinner,
-    loading,
     showData,
     summary,
-    test2,
     temperature,
     dewPoint,
     ozone,
@@ -27,25 +28,23 @@ const Ui = props => {
     windSpeed,
     humidity
   } = props;
+  // const element = <FontAwesomeIcon icon={faCoffee} />;
 
   function myFunc() {
-    return showData;
-  }
-
-  /*   function myFunc2() {
-    return test2;
-  } */
-
-  function myFunction() {
-    return myFunc();
-    // return myFunc2();
+    if (showData) {
+      return showData;
+    }
   }
 
   return (
     <div className="all-center">
       <h1>{props.title}</h1>
       <br />
-      <button className="btn btn-dark" onClick={myFunction()}>
+      <button
+        className="btn btn-dark"
+        onClick={myFunc()}
+        disabled={ButtonDisabled}
+      >
         {props.button}
       </button>
       <br />
@@ -78,43 +77,10 @@ const Ui = props => {
         {windGustText[8]} {windGust}
       </h3>
       <h3>
-        {windSpeedText[9]} {windSpeed}{" "}
+        {windSpeedText[9]} {windSpeed}
       </h3>
-      {/*       
-      <h3> {windSpeed[8]}</h3> */}
-
-      {/*       <h3>Summary: {summary}</h3>
-      <h3>Temperature: {temperature}</h3>
-      <h3>Dew Point: {dewPoint}</h3>
-      <h3>Ozone: {ozone}</h3>
-      <h3>Pressure: {pressure}</h3>
-      <h3>Visibility: {visibility}</h3>
-      <h3>Wind Bearing: {windBearing}</h3>
-      <h3>Wind Gust: {windGust}</h3>
-      <h3>Wind Speed: {windSpeed}</h3> */}
-      {/* <h3>{text() + summary}</h3> */}
-      {/* <h3>{test}</h3> */}
     </div>
   );
 };
 
 export default Ui;
-
-/* import React, { Fragment, Component } from "react";
-import Data from "../weather-info/Data";
-
-export class Ui extends Component {
-  render() {
-    return (
-      <Fragment>
-        <div className="all-center">
-          <h1>{this.props.title}</h1>
-          <br />
-          <button className="btn btn-dark">{this.props.button}</button>
-        </div>
-      </Fragment>
-    );
-  }
-}
-
-export default Ui; */

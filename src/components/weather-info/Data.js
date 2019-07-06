@@ -1,6 +1,5 @@
 // data is useritem
 import React from "react";
-import Ui from "../layout/Ui";
 
 const Data = props => {
   return (
