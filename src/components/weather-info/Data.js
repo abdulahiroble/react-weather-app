@@ -1,10 +1,14 @@
 // data is useritem
 import React from "react";
+import Ui from "../layout/Ui";
 
 const Data = props => {
   return (
     <div>
       <div className="all-center">
+        {/* <h3>Summary: {props.summary}</h3> */}
+      </div>
+      {/*       <div className="all-center">
         <h3>Summary: {props.summary}</h3>
         <h3>Temperature: {props.temperature}</h3>
         <h3>Dew Point: {props.dewpoint}</h3>
@@ -15,7 +19,7 @@ const Data = props => {
         <h3>Wind Bearing: {props.windBearing}</h3>
         <h3>Wind Gust: {props.windGust}</h3>
         <h3>Wind Speed: {props.windSpeed}</h3>
-      </div>
+      </div> */}
     </div>
   );
 };
