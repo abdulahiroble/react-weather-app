@@ -1,6 +1,4 @@
 import React from "react";
-/* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons"; */
 
 const Ui = props => {
   const {
@@ -26,26 +24,19 @@ const Ui = props => {
     windBearing,
     windGust,
     windSpeed,
-    humidity
+    humidity,
+    button
   } = props;
-  // const element = <FontAwesomeIcon icon={faCoffee} />;
-
-  function myFunc() {
-    if (showData) {
-      return showData;
-    }
-  }
 
   return (
     <div className="all-center">
-      <h1>{props.title}</h1>
       <br />
       <button
         className="btn btn-dark"
-        onClick={myFunc()}
+        onClick={showData}
         disabled={ButtonDisabled}
       >
-        {props.button}
+        {button}
       </button>
       <br />
       <div>{spinner}</div>
@@ -81,6 +72,10 @@ const Ui = props => {
       </h3>
     </div>
   );
+};
+
+Ui.defaultProps = {
+  button: "Get Current Weather"
 };
 
 export default Ui;

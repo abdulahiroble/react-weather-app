@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React, { Fragment, Component } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import axios from "axios";
 import Ui from "./components/layout/Ui";
 import Data from "./components/weather-info/Data";
 import Spinner from "./components/layout/Spinner";
+import Navbar from "./components/layout/Navbar";
 
 class App extends Component {
   state = {
@@ -53,37 +55,47 @@ class App extends Component {
     // Destructuring
     const { weather, loading, message, isButtonDisabled } = this.state;
     return (
-      <div className="App">
-        <Ui
-          title="Weather App"
-          button="Get Current Weather"
-          spinner={loading && <Spinner />}
-          ButtonDisabled={isButtonDisabled}
-          summaryText={message}
-          temperatureText={message}
-          dewPointText={message}
-          humidityText={message}
-          ozoneText={message}
-          currentPressureText={message}
-          visibilityText={message}
-          windBearingText={message}
-          windGustText={message}
-          windSpeedText={message}
-          showData={this.showData}
-          summary={weather.summary}
-          temperature={weather.apparentTemperature}
-          dewPoint={weather.dewPoint}
-          humidity={weather.humidity}
-          icon={weather.icon}
-          ozone={weather.ozone}
-          pressure={weather.pressure}
-          visibility={weather.visibility}
-          windBearing={weather.windBearing}
-          windGust={weather.windGust}
-          windSpeed={weather.windSpeed}
-        />
-        <Data />
-      </div>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Switch>
+            <Route
+              path="/"
+              render={props => (
+                <Fragment>
+                  <Ui
+                    spinner={loading && <Spinner />}
+                    ButtonDisabled={isButtonDisabled}
+                    summaryText={message}
+                    temperatureText={message}
+                    dewPointText={message}
+                    humidityText={message}
+                    ozoneText={message}
+                    currentPressureText={message}
+                    visibilityText={message}
+                    windBearingText={message}
+                    windGustText={message}
+                    windSpeedText={message}
+                    showData={this.showData}
+                    summary={weather.summary}
+                    temperature={weather.apparentTemperature}
+                    dewPoint={weather.dewPoint}
+                    humidity={weather.humidity}
+                    icon={weather.icon}
+                    ozone={weather.ozone}
+                    pressure={weather.pressure}
+                    visibility={weather.visibility}
+                    windBearing={weather.windBearing}
+                    windGust={weather.windGust}
+                    windSpeed={weather.windSpeed}
+                  />
+                  <Data />
+                </Fragment>
+              )}
+            />
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
