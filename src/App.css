@@ -67,6 +67,20 @@ img {
   margin-bottom: 1rem;
 }
 
+.light-text {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: normal;
+}
+
+.light-middle-text {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  font-weight: normal;
+  text-align: center;
+  letter-spacing: 0.2rem;
+}
+
 .text-center {
   text-align: center;
 }

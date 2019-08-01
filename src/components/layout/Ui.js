@@ -3,29 +3,21 @@ import React from "react";
 const Ui = props => {
   const {
     ButtonDisabled,
-    summaryText,
-    temperatureText,
-    dewPointText,
     humidityText,
-    ozoneText,
-    currentPressureText,
-    visibilityText,
-    windBearingText,
-    windGustText,
     windSpeedText,
     spinner,
     showData,
     summary,
     temperature,
-    dewPoint,
-    ozone,
-    pressure,
-    visibility,
-    windBearing,
-    windGust,
     windSpeed,
     humidity,
-    button
+    feelsLike,
+    feelsLikeText,
+    button,
+    showButton,
+    clearData,
+    summaryHourly,
+    icon
   } = props;
 
   return (
@@ -39,37 +31,30 @@ const Ui = props => {
         {button}
       </button>
       <br />
+      {showButton && (
+        <button className="btn btn-light" onClick={clearData}>
+          Clear
+        </button>
+      )}
+      <br />
       <div>{spinner}</div>
-      <h3>
-        {summaryText[0]} {summary}
-      </h3>
-      <h3>
-        {temperatureText[1]} {temperature}
-      </h3>
-      <h3>
-        {dewPointText[2]} {dewPoint}
-      </h3>
-      <h3>
-        {humidityText[3]} {humidity}
-      </h3>
-      <h3>
-        {ozoneText[4]} {ozone}
-      </h3>
-      <h3>
-        {currentPressureText[5]} {pressure}
-      </h3>
-      <h3>
-        {visibilityText[6]} {visibility}
-      </h3>
-      <h3>
-        {windBearingText[7]} {windBearing}
-      </h3>
-      <h3>
-        {windGustText[8]} {windGust}
-      </h3>
-      <h3>
-        {windSpeedText[9]} {windSpeed}
-      </h3>
+      <h1 className="text-center">
+        {icon} {temperature} {summary}
+      </h1>
+      <div className="grid-3">
+        <div className="light-text">
+          {feelsLikeText[1]} {feelsLike}
+        </div>
+        <div className="light-text">
+          {windSpeedText[2]} {windSpeed}
+        </div>
+        <div className="light-text">
+          {humidityText[3]} {humidity}
+        </div>
+      </div>
+      <h1 className="lead text-center light-middle-text">{summaryHourly}</h1>
+
+      <a href="https://darksky.net/poweredby/">Powered by Dark Sky</a>
     </div>
   );
 };
