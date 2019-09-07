@@ -1,66 +1,98 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import WeatherContext from "../../context/weather/weatherContext";
+import Spinner from "./Spinner";
 
-const Ui = props => {
+const Ui = () => {
+  useEffect(() => {
+    weatherContext.showData();
+  }, []);
+
+  // Initalize weatherContext
+  const weatherContext = useContext(WeatherContext);
+
+  // Destructuring
   const {
-    ButtonDisabled,
-    humidityText,
-    windSpeedText,
-    spinner,
-    showData,
     summary,
     temperature,
     windSpeed,
     humidity,
-    feelsLike,
-    feelsLikeText,
-    button,
-    showButton,
-    clearData,
-    summaryHourly,
-    icon
-  } = props;
+    icon,
+    apparentTemperature
+  } = weatherContext.weather;
+
+  // Convert to celcius
+  const temperatureCelcius = Math.round((temperature - 32) / 1.8);
+  const apparentTemperatureCelcius = Math.round(
+    (apparentTemperature - 32) / 1.8
+  );
+
+  // Text for windspeed, humidity and summary
+  const windSpeedText = { windSpeed };
+  const humidityText = { humidity };
+  const summarytext = { summary };
+
+  // Choose icon depending on what the weather is like
+  const chooseIcon = () => {
+    if (icon === "cloudy") {
+      return <i className="fas fa-cloud" />;
+    } else if (icon === "partly-cloudy-day") {
+      return <i className="fas fa-cloud-sun" />;
+    } else if (icon === "clear-day") {
+      return <i className="far fa-sun" />;
+    } else if (icon === "clear-night") {
+      return <i className="far fa-moon" />;
+    } else if (icon === "partly-cloudy-night") {
+      return <i className="fas fa-cloud-moon" />;
+    } else if (icon === "fog") {
+      return <i className="fas fa-smog" />;
+    } else if (icon === "wind") {
+      return <i className="fas fa-wind" />;
+    } else if (icon === "rain") {
+      return <i className="fas fa-cloud-rain" />;
+    } else {
+      return false;
+    }
+  };
 
   return (
-    <div className="all-center">
-      <br />
-      <button
-        className="btn btn-dark"
-        onClick={showData}
-        disabled={ButtonDisabled}
-      >
-        {button}
-      </button>
-      <br />
-      {showButton && (
-        <button className="btn btn-light" onClick={clearData}>
+    <div className="center-align">
+      {/*       
+      {temperatureCelcius ? (
+        <button className="btn red" onClick={weatherContext.clearData}>
           Clear
         </button>
-      )}
-      <br />
-      <div>{spinner}</div>
-      <h1 className="text-center">
-        {icon} {temperature} {summary}
-      </h1>
-      <div className="grid-3">
-        <div className="light-text">
-          {feelsLikeText[1]} {feelsLike}
-        </div>
-        <div className="light-text">
-          {windSpeedText[2]} {windSpeed}
-        </div>
-        <div className="light-text">
-          {humidityText[3]} {humidity}
-        </div>
-      </div>
-      <h1 className="lead text-center light-middle-text">{summaryHourly}</h1>
+      ) : (
+        false
+      )} */}
 
+      <br />
+      <div>{weatherContext.loading ? <Spinner /> : false}</div>
+      <h4 className="flex">
+        {weatherContext.weatherCity ? weatherContext.weatherCity : false}
+      </h4>
+      <div className="weather">
+        <h4>{icon ? chooseIcon() : false}</h4>
+        <h4 className="space">
+          {temperature ? `${temperatureCelcius}°` : false}
+        </h4>
+        <h4>{summary ? `${summarytext.summary}` : false}</h4>
+      </div>
+      <div className="flex2">
+        <div>
+          {apparentTemperature
+            ? `Feels like: ${apparentTemperatureCelcius}°`
+            : false}
+        </div>
+
+        <div>
+          {windSpeed ? `Wind Speed: ${windSpeedText.windSpeed}` : false}
+        </div>
+        <div>{humidity ? `Humidity: ${humidityText.humidity}` : false}</div>
+      </div>
+      <h3 className="hourly">{weatherContext.weatherHourly.summary}</h3>
       <a href="https://darksky.net/poweredby/">Powered by Dark Sky</a>
     </div>
   );
-};
-
-Ui.defaultProps = {
-  button: "Get Current Weather"
 };
 
 export default Ui;
