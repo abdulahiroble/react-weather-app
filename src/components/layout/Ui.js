@@ -29,9 +29,6 @@ const Ui = () => {
   let windSpeedText = Math.round(windSpeed);
   let humidityText = Math.round(humidity);
 
-  // Text for windspeed, humidity and summary
-  /*   const windSpeedText = { windSpeed };
-  const humidityText = { humidity }; */
   const summarytext = { summary };
 
   // Choose icon depending on what the weather is like
@@ -87,8 +84,8 @@ const Ui = () => {
             : false}
         </div>
 
-        <div>{windSpeed ? `Wind Speed: ${windSpeedText}` : false}</div>
-        <div>{humidity ? `Humidity: ${humidityText}` : false}</div>
+        <div>{windSpeed ? `Wind Speed: ${windSpeedText} m/s` : false}</div>
+        <div>{humidity ? `Humidity: ${humidityText} %` : false}</div>
       </div>
       <h3 className="hourly">{weatherContext.weatherHourly.summary}</h3>
 
