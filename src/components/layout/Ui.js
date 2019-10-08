@@ -26,8 +26,8 @@ const Ui = () => {
   const apparentTemperatureCelcius = Math.round(
     (apparentTemperature - 32) / 1.8
   );
-  let windSpeedText = Math.round(windSpeed);
-  let humidityText = Math.round(humidity);
+  const windSpeedText = Math.round(windSpeed);
+  let humidityText = humidity * 100;
 
   const summarytext = { summary };
 
