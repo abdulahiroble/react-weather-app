@@ -5,6 +5,7 @@ import Spinner from "./Spinner";
 const Ui = () => {
   useEffect(() => {
     weatherContext.showData();
+    /* weatherContext.changeLocation(); */
   }, []);
 
   // Initalize weatherContext
@@ -25,10 +26,12 @@ const Ui = () => {
   const apparentTemperatureCelcius = Math.round(
     (apparentTemperature - 32) / 1.8
   );
+  let windSpeedText = Math.round(windSpeed);
+  let humidityText = Math.round(humidity);
 
   // Text for windspeed, humidity and summary
-  const windSpeedText = { windSpeed };
-  const humidityText = { humidity };
+  /*   const windSpeedText = { windSpeed };
+  const humidityText = { humidity }; */
   const summarytext = { summary };
 
   // Choose icon depending on what the weather is like
@@ -84,13 +87,15 @@ const Ui = () => {
             : false}
         </div>
 
-        <div>
-          {windSpeed ? `Wind Speed: ${windSpeedText.windSpeed}` : false}
-        </div>
-        <div>{humidity ? `Humidity: ${humidityText.humidity}` : false}</div>
+        <div>{windSpeed ? `Wind Speed: ${windSpeedText}` : false}</div>
+        <div>{humidity ? `Humidity: ${humidityText}` : false}</div>
       </div>
       <h3 className="hourly">{weatherContext.weatherHourly.summary}</h3>
-      <a href="https://darksky.net/poweredby/">Powered by Dark Sky</a>
+
+      {/* <h3>{weatherContext.changeLocation()}</h3> */}
+      <a href="https://darksky.net/poweredby/" style={{ color: "red" }}>
+        Powered by Dark Sky
+      </a>
     </div>
   );
 };
