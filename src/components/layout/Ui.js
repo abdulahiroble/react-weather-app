@@ -27,7 +27,7 @@ const Ui = () => {
     (apparentTemperature - 32) / 1.8
   );
   const windSpeedText = Math.round(windSpeed);
-  let humidityText = humidity * 100;
+  const humidityText = humidity * 100;
 
   const summarytext = { summary };
 
@@ -89,7 +89,7 @@ const Ui = () => {
       </div>
       <h3 className="hourly">{weatherContext.weatherHourly.summary}</h3>
 
-      {/* <h3>{weatherContext.changeLocation()}</h3> */}
+      {/* <h3>{weatherContext.changeLocation}</h3> */}
       <a href="https://darksky.net/poweredby/" style={{ color: "red" }}>
         Powered by Dark Sky
       </a>

@@ -8,9 +8,18 @@ const AddBtn = () => {
       </a>
       <br />
       <br />
-      <a href="#clear">
-        <button className="btn red darken-2">CLEAR</button>
-      </a>
+      {/*       <a href="#clear">
+        {weatherContext.showData ? (
+          <button
+            className="btn red darken-2"
+            onClick={weatherContext.clearData}
+          >
+            Clear
+          </button>
+        ) : (
+          false
+        )}
+      </a> */}
     </div>
   );
 };

@@ -1,18 +1,31 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import WeatherContext from "../../context/weather/weatherContext";
 import M from "materialize-css/dist/js/materialize.min.js";
+// import Countries from "../../components/change/Countries";
 
 const AddChange = () => {
+  const [location, setLocation] = useState("");
+
+  useEffect(() => {
+    /* weatherContext.changeLocation(); */
+  }, []);
+
   // Initialize weatherContext
   const weatherContext = useContext(WeatherContext);
-
-  const [location, setLocation] = useState("");
 
   const onSubmit = () => {
     if (location === "") {
       M.toast({ html: "Please enter a location" });
     } else {
+      setLocation(weatherContext.clearData);
+
       setLocation(weatherContext.changeLocation);
+
+      /* setLocation(weatherContext.changeLocation()); */
+
+      /* console.log(weatherContext.changeLocation()); */
+
+      // console.log(match.a)
 
       // Clear state
       setLocation("");
