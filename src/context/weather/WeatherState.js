@@ -65,6 +65,12 @@ const WeatherState = (props) => {
     });
   };
 
+  const getLocation = async () => {
+    const res = await axios.get(
+      "https://cors-anywhere.herokuapp.com/https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDikpb5m4qaQ1jxQRTXd7Vbxx2VOtaV4eY"
+    );
+  };
+
   const changeLocation = async () => {
     setLoading();
 
@@ -194,6 +200,7 @@ const WeatherState = (props) => {
         showData,
         clearData,
         changeLocation,
+        getLocation,
       }}
     >
       {props.children}
