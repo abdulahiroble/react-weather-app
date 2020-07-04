@@ -4,7 +4,7 @@ import Spinner from "./Spinner";
 
 const Ui = () => {
   useEffect(() => {
-    weatherContext.showData();
+    // weatherContext.showData();
     weatherContext.getLocation();
     /* weatherContext.changeLocation(); */
   }, []);
