@@ -79,7 +79,12 @@ const WeatherState = (props) => {
     }
 
     function showPosition(position) {
-      return "Latitude: " + position.coords.latitude;
+      return (
+        "Latitude: " +
+        position.coords.latitude +
+        " " +
+        position.coords.longitude
+      );
     }
   };
 
