@@ -83,6 +83,7 @@ const WeatherState = (props) => {
         "Latitude: " +
         position.coords.latitude +
         " " +
+        "Longitude: " +
         position.coords.longitude
       );
     }
