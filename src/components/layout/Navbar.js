@@ -1,25 +1,28 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const Navbar = ({ icon, title }) => {
+const Navbar = () => {
   return (
-    <nav className="navbar bg-danger all-center">
-      <h1>
-        <i className={icon} />
-        {title}
-      </h1>
+    <nav>
+      <div
+        className="nav-wrapper"
+        style={{
+          textAlign: "center",
+          paddingRight: "11em"
+        }}
+      >
+        <a href="#!" className="brand-logo">
+          <i className="large material-icons">cloud</i>
+          Weather
+        </a>
+      </div>
     </nav>
+    /*     <nav className="align-center">
+      <h1>
+        <i className="fas fa-cloud m" />
+        Weather App
+      </h1>
+    </nav> */
   );
-};
-
-Navbar.defaultProps = {
-  title: " Danish Weather App",
-  icon: " fas fa-cloud"
-};
-
-Navbar.propTypes = {
-  title: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired
 };
 
 export default Navbar;

@@ -1,32 +1,126 @@
-import React, { useReducer } from "react";
+import React, { useReducer, Fragment } from "react";
 import axios from "axios";
 import WeatherContext from "./weatherContext";
 import WeatherReducer from "./weatherReducer";
+import { Query } from "react-apollo";
+import CountryCode from "../../countrycode-latlong-array";
+import gql from "graphql-tag";
 
 import {
   GET_WEATHER_CURRENTLY,
   GET_WEATHER_HOURLY,
+  GET_WEATHER_CITY,
   SET_LOADING,
-  SET_DISABLED_BUTTON
+  SET_DISABLED_BUTTON,
+  GET_COUNTRY_WEATHER_INFO,
 } from "../types";
 
-const WeatherState = props => {
+const GET_COUNTRY = gql`
+  {
+    country(code: "BR") {
+      name
+      code
+    }
+  }
+`;
+
+const WeatherState = (props) => {
   // Our global state for anything that involves Darksky
   const initialState = {
     weather: [],
     weatherHourly: [],
     loading: false,
-    isButtonDisabled: false
+    isButtonDisabled: false,
+    getCountry: "",
   };
 
   const [state, dispatch] = useReducer(WeatherReducer, initialState);
 
+  console.log(
+    "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDikpb5m4qaQ1jxQRTXd7Vbxx2VOtaV4eY"
+  );
+
   // Get weather info
   const showData = async () => {
-    setLoading();
     const res = await axios.get(
-      "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/55.676098,12.568337/"
+      "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/55.676098,12.568337"
     );
+
+    // console.log(res);
+
+    // Fetching the data
+    dispatch({
+      type: GET_WEATHER_CURRENTLY,
+      payload: res.data.currently,
+    });
+
+    dispatch({
+      type: GET_WEATHER_HOURLY,
+      payload: res.data.hourly,
+    });
+
+    dispatch({
+      type: GET_WEATHER_CITY,
+      payload: res.data.timezone,
+    });
+  };
+
+  const getLocation = () => {
+    // const res = await axios.get(
+    //   "https://cors-anywhere.herokuapp.com/https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDikpb5m4qaQ1jxQRTXd7Vbxx2VOtaV4eY"
+    // );
+
+    const x = document.getElementById("demo");
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+
+    function showPosition(position) {
+      return (
+        "Latitude: " +
+        position.coords.latitude +
+        " " +
+        "Longitude: " +
+        position.coords.longitude
+      );
+    }
+  };
+
+  const changeLocation = async () => {
+    setLoading();
+
+    /*          const response = await axios.get(
+      `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/${code}`
+    ); 
+ */
+
+    /* export const getLogs = () => async dispatch => {
+  try {
+    setLoading();
+
+    const res = await fetch("/ad");
+    const data = await res.json();
+
+    dispatch({
+      type: GET_LOGS,
+      payload: data
+    });
+  } catch (err) {
+    dispatch({
+      type: LOGS_ERROR,
+      payload: err.response.data
+    });
+  }
+}; */
+
+    const response = await axios.get(
+      `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/24.0000, 54.0000`
+    );
+
+    console.log(response);
 
     // Removing the spinner after 2 seconds
     setTimeout(() => {
@@ -37,44 +131,75 @@ const WeatherState = props => {
     setTimeout(() => {
       dispatch({
         type: GET_WEATHER_CURRENTLY,
-        payload: res.data.currently
+        payload: response.data.currently,
       });
 
       dispatch({
         type: GET_WEATHER_HOURLY,
-        payload: res.data.hourly
+        payload: response.data.hourly,
       });
-    }, 2000);
 
-    // disabling the button after 2 seconds
-    setTimeout(() => {
       dispatch({
-        type: SET_DISABLED_BUTTON,
-        payload: true
+        type: GET_WEATHER_CITY,
+        payload: response.data.timezone,
       });
     }, 2000);
   };
+
+  /* const changeLocation = () => {
+    setLoading();
+    return (
+      <Fragment>
+        <Query query={GET_COUNTRY}>
+          {({ loading, error, data }) => {
+            if (loading) return <h4>Loading...</h4>;
+            if (error) console.log(error);
+             console.log(data.country.name);
+
+            return (
+              <Fragment>
+                {dispatch({
+                  type: GET_COUNTRY_WEATHER_INFO,
+                  payload: data.country.name
+                })}
+              </Fragment>
+            );
+
+                         dispatch({
+              type: GET_COUNTRY_WEATHER_INFO,
+              payload: data.country.name
+            }); 
+          }}
+        </Query>
+      </Fragment>
+    );
+  }; */
 
   // Clear button which once clicked resets everything
   const clearData = () => {
     dispatch({
       type: GET_WEATHER_CURRENTLY,
-      payload: []
+      payload: [],
     });
 
     dispatch({
       type: GET_WEATHER_HOURLY,
-      payload: []
+      payload: [],
+    });
+
+    dispatch({
+      type: GET_WEATHER_CITY,
+      payload: [],
     });
 
     dispatch({
       type: SET_LOADING,
-      payload: false
+      payload: false,
     });
 
     dispatch({
       type: SET_DISABLED_BUTTON,
-      payload: false
+      payload: false,
     });
   };
 
@@ -86,10 +211,14 @@ const WeatherState = props => {
       value={{
         weather: state.weather,
         weatherHourly: state.weatherHourly,
+        weatherCity: state.weatherCity,
         loading: state.loading,
         isButtonDisabled: state.isButtonDisabled,
+        getCountry: state.getCountry,
         showData,
-        clearData
+        clearData,
+        changeLocation,
+        getLocation,
       }}
     >
       {props.children}

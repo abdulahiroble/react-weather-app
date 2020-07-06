@@ -1,8 +1,10 @@
 import {
   GET_WEATHER_CURRENTLY,
   GET_WEATHER_HOURLY,
+  GET_WEATHER_CITY,
   SET_LOADING,
-  SET_DISABLED_BUTTON
+  SET_DISABLED_BUTTON,
+  GET_COUNTRY_WEATHER_INFO
 } from "../types";
 
 export default (state, action) => {
@@ -19,6 +21,12 @@ export default (state, action) => {
         weatherHourly: action.payload,
         loading: false
       };
+    case GET_WEATHER_CITY:
+      return {
+        ...state,
+        weatherCity: action.payload,
+        loading: false
+      };
     case SET_LOADING:
       return {
         ...state,
@@ -28,6 +36,12 @@ export default (state, action) => {
       return {
         ...state,
         isButtonDisabled: action.payload,
+        loading: false
+      };
+    case GET_COUNTRY_WEATHER_INFO:
+      return {
+        ...state,
+        getCountry: action.payload,
         loading: false
       };
     default:
