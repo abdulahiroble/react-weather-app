@@ -36,14 +36,10 @@ const WeatherState = (props) => {
 
   const [state, dispatch] = useReducer(WeatherReducer, initialState);
 
-  console.log(
-    "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDikpb5m4qaQ1jxQRTXd7Vbxx2VOtaV4eY"
-  );
-
   // Get weather info
   const showData = async () => {
     const res = await axios.get(
-      "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/55.676098,12.568337"
+      "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/55.676098,12.568337/"
     );
 
     // console.log(res);
@@ -65,56 +61,28 @@ const WeatherState = (props) => {
     });
   };
 
-  const getLocation = () => {
-    // const res = await axios.get(
-    //   "https://cors-anywhere.herokuapp.com/https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDikpb5m4qaQ1jxQRTXd7Vbxx2VOtaV4eY"
-    // );
+  // const getLocation = () => {
+  //   const x = document.getElementById("demo");
 
-    const x = document.getElementById("demo");
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(showPosition);
+  //   } else {
+  //     x.innerHTML = "Geolocation is not supported by this browser.";
+  //   }
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-
-    function showPosition(position) {
-      return (
-        "Latitude: " +
-        position.coords.latitude +
-        " " +
-        "Longitude: " +
-        position.coords.longitude
-      );
-    }
-  };
+  //   function showPosition(position) {
+  //     return (
+  //       "Latitude: " +
+  //       position.coords.latitude +
+  //       " " +
+  //       "Longitude: " +
+  //       position.coords.longitude
+  //     );
+  //   }
+  // };
 
   const changeLocation = async () => {
     setLoading();
-
-    /*          const response = await axios.get(
-      `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/${code}`
-    ); 
- */
-
-    /* export const getLogs = () => async dispatch => {
-  try {
-    setLoading();
-
-    const res = await fetch("/ad");
-    const data = await res.json();
-
-    dispatch({
-      type: GET_LOGS,
-      payload: data
-    });
-  } catch (err) {
-    dispatch({
-      type: LOGS_ERROR,
-      payload: err.response.data
-    });
-  }
-}; */
 
     const response = await axios.get(
       `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/24.0000, 54.0000`
@@ -145,35 +113,6 @@ const WeatherState = (props) => {
       });
     }, 2000);
   };
-
-  /* const changeLocation = () => {
-    setLoading();
-    return (
-      <Fragment>
-        <Query query={GET_COUNTRY}>
-          {({ loading, error, data }) => {
-            if (loading) return <h4>Loading...</h4>;
-            if (error) console.log(error);
-             console.log(data.country.name);
-
-            return (
-              <Fragment>
-                {dispatch({
-                  type: GET_COUNTRY_WEATHER_INFO,
-                  payload: data.country.name
-                })}
-              </Fragment>
-            );
-
-                         dispatch({
-              type: GET_COUNTRY_WEATHER_INFO,
-              payload: data.country.name
-            }); 
-          }}
-        </Query>
-      </Fragment>
-    );
-  }; */
 
   // Clear button which once clicked resets everything
   const clearData = () => {
@@ -218,7 +157,7 @@ const WeatherState = (props) => {
         showData,
         clearData,
         changeLocation,
-        getLocation,
+        // getLocation,
       }}
     >
       {props.children}
