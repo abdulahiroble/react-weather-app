@@ -12,6 +12,8 @@ import {
   GET_WEATHER_CITY,
   SET_LOADING,
   SET_DISABLED_BUTTON,
+  GET_LATITUDE,
+  GET_LONGITUDE,
   GET_COUNTRY_WEATHER_INFO,
 } from "../types";
 
@@ -61,25 +63,28 @@ const WeatherState = (props) => {
     });
   };
 
-  // const getLocation = () => {
-  //   const x = document.getElementById("demo");
+  const getLocation = () => {
+    const x = document.getElementById("demo");
 
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(showPosition);
-  //   } else {
-  //     x.innerHTML = "Geolocation is not supported by this browser.";
-  //   }
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+      });
+    } else {
+      x.innerHTML = "Geolocation is not supported by this browser.";
+    }
 
-  //   function showPosition(position) {
-  //     return (
-  //       "Latitude: " +
-  //       position.coords.latitude +
-  //       " " +
-  //       "Longitude: " +
-  //       position.coords.longitude
-  //     );
-  //   }
-  // };
+    // function showPosition(position) {
+    //   return (
+    //     "Latitude: " +
+    //     position.coords.latitude +
+    //     " " +
+    //     "Longitude: " +
+    //     position.coords.longitude
+    //   );
+    // }
+  };
 
   const changeLocation = async () => {
     setLoading();
@@ -157,7 +162,7 @@ const WeatherState = (props) => {
         showData,
         clearData,
         changeLocation,
-        // getLocation,
+        getLocation,
       }}
     >
       {props.children}
