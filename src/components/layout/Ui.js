@@ -5,6 +5,7 @@ import Spinner from "./Spinner";
 const Ui = () => {
   useEffect(() => {
     weatherContext.showData();
+    weatherContext.test();
     // weatherContext.getLocation();
     // weatherContext.showPosition();
   }, []);
@@ -28,20 +29,20 @@ const Ui = () => {
     (apparentTemperature - 32) / 1.8
   );
   const windSpeedText = Math.round(windSpeed);
-  const humidityText = humidity * 100;
+  const humidityText = Math.round(humidity * 100);
 
   const summarytext = { summary };
 
   // Choose icon depending on what the weather is like
   const chooseIcon = () => {
     if (icon === "cloudy") {
-      return <i className="fas fa-cloud" />;
+      return <i className="fas fa-cloud" style={{ color: "grey" }} />;
     } else if (icon === "partly-cloudy-day") {
-      return <i className="fas fa-cloud-sun" />;
+      return <i className="fas fa-cloud-sun" style={{ color: "grey" }} />;
     } else if (icon === "clear-day") {
-      return <i className="far fa-sun" />;
+      return <i className="far fa-sun" style={{ color: "grey" }} />;
     } else if (icon === "clear-night") {
-      return <i className="far fa-moon" />;
+      return <i className="far fa-moon" style={{ color: "blue" }} />;
     } else if (icon === "partly-cloudy-night") {
       return <i className="fas fa-cloud-moon" />;
     } else if (icon === "fog") {

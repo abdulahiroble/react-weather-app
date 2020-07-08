@@ -7,12 +7,12 @@ const Navbar = () => {
         className="nav-wrapper"
         style={{
           textAlign: "center",
-          paddingRight: "11em"
+          paddingRight: "11em",
         }}
       >
         <a href="#!" className="brand-logo">
           <i className="large material-icons">cloud</i>
-          Weather
+          WEATHER
         </a>
       </div>
     </nav>
