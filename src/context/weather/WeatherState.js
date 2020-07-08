@@ -38,13 +38,67 @@ const WeatherState = (props) => {
 
   const [state, dispatch] = useReducer(WeatherReducer, initialState);
 
+  // const getLocation = () => {
+  //   const x = document.getElementById("demo");
+
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(function (position) {
+  //       console.log("Latitude is :", position.coords.latitude);
+  //       console.log("Longitude is :", position.coords.longitude);
+  //     });
+  //   } else {
+  //     x.innerHTML = "Geolocation is not supported by this browser.";
+  //   }
+  // };
+
+  const test = () => {
+    console.log("hej");
+  };
+
   // Get weather info
   const showData = async () => {
-    const res = await axios.get(
-      "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/55.676098,12.568337/"
-    );
+    // navigator.geolocation.getCurrentPosition((test) =>
+    //   console.log(
+    //     `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/${test.coords.latitude},${test.coords.longitude}/`
+    //   )
+    // );
 
-    // console.log(res);
+    // console.log(
+    //   `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/${navigator.geolocation.getCurrentPosition(
+    //     (test) => test.coords.latitude
+    //   )},	${navigator.geolocation.getCurrentPosition(
+    //     (test) => test.coords.longitude
+    //   )}/`
+    // );
+
+    // navigator.geolocation.getCurrentPosition((test) => {
+    //   let res = axios.get(
+    //     `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/${test.coords.latitude},${test.coords.longitude}/`
+    //   );
+
+    //   console.log(res);
+    // });
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showLatitude);
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showLongitude);
+    }
+
+    function showLatitude(test) {
+      console.log(test.coords.latitude);
+    }
+
+    function showLongitude(test2) {
+      console.log(test2.coords.longitude);
+    }
+
+    const res = await axios.get(
+      //`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/${test.coords.latitude},${test.coords.longitude}/`
+      `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/55.66792712079129,12.578312951862358/`
+    );
 
     // Fetching the data
     dispatch({
@@ -61,29 +115,39 @@ const WeatherState = (props) => {
       type: GET_WEATHER_CITY,
       payload: res.data.timezone,
     });
-  };
 
-  const getLocation = () => {
-    const x = document.getElementById("demo");
+    // navigator.geolocation.getCurrentPosition((test) => {
+    //   const res = `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/${test.coords.latitude},${test.coords.longitude}/`;
+    //   // `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/55.676098,	12.568337/`
+    // });
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude);
-      });
-    } else {
-      x.innerHTML = "Geolocation is not supported by this browser.";
-    }
+    // const test2 = await axios.get(test);
 
-    // function showPosition(position) {
-    //   return (
-    //     "Latitude: " +
-    //     position.coords.latitude +
-    //     " " +
-    //     "Longitude: " +
-    //     position.coords.longitude
-    //   );
-    // }
+    // Fetching the data
+    // dispatch({
+    //   type: GET_WEATHER_CURRENTLY,
+    //   payload: res.data.currently,
+    // });
+
+    // dispatch({
+    //   type: GET_WEATHER_HOURLY,
+    //   payload: res.data.hourly,
+    // });
+
+    // dispatch({
+    //   type: GET_WEATHER_CITY,
+    //   payload: res.data.timezone,
+    // });
+
+    // const res = await axios.get(
+    //   `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/55.67009870966123,12.576573846762678/`
+    //   `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/${position.coords.latitude},${position.coords.longitude}/`
+    // `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/${navigator.geolocation.getCurrentPosition(
+    //   (pos) => pos.coords.latitude
+    // )},${navigator.geolocation.getCurrentPosition(
+    //   (pos) => pos.coords.longitude
+    // )}/`
+    // );
   };
 
   const changeLocation = async () => {
@@ -162,7 +226,8 @@ const WeatherState = (props) => {
         showData,
         clearData,
         changeLocation,
-        getLocation,
+        test,
+        // getLocation,
       }}
     >
       {props.children}
