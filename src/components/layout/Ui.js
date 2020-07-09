@@ -40,7 +40,7 @@ const Ui = () => {
     } else if (icon === "partly-cloudy-day") {
       return <i className="fas fa-cloud-sun" style={{ color: "grey" }} />;
     } else if (icon === "clear-day") {
-      return <i className="far fa-sun" style={{ color: "grey" }} />;
+      return <i className="far fa-sun" style={{ color: "yellow" }} />;
     } else if (icon === "clear-night") {
       return <i className="far fa-moon" style={{ color: "blue" }} />;
     } else if (icon === "partly-cloudy-night") {
