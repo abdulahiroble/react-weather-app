@@ -6,8 +6,6 @@ const Ui = () => {
   useEffect(() => {
     weatherContext.showData();
     weatherContext.test();
-    // weatherContext.getLocation();
-    // weatherContext.showPosition();
   }, []);
 
   // Initalize weatherContext
@@ -40,17 +38,17 @@ const Ui = () => {
     } else if (icon === "partly-cloudy-day") {
       return <i className="fas fa-cloud-sun" style={{ color: "grey" }} />;
     } else if (icon === "clear-day") {
-      return <i className="far fa-sun" style={{ color: "yellow" }} />;
+      return <i className="far fa-sun" style={{ color: "#FDF100" }} />;
     } else if (icon === "clear-night") {
-      return <i className="far fa-moon" style={{ color: "blue" }} />;
+      return <i className="far fa-moon" style={{ color: "#FEB614" }} />;
     } else if (icon === "partly-cloudy-night") {
-      return <i className="fas fa-cloud-moon" />;
+      return <i className="fas fa-cloud-moon" style={{ color: "#4973ff" }} />;
     } else if (icon === "fog") {
-      return <i className="fas fa-smog" />;
+      return <i className="fas fa-smog" style={{ color: "#606060" }} />;
     } else if (icon === "wind") {
-      return <i className="fas fa-wind" />;
+      return <i className="fas fa-wind" style={{ color: "#787878" }} />;
     } else if (icon === "rain") {
-      return <i className="fas fa-cloud-rain" />;
+      return <i className="fas fa-cloud-rain" style={{ color: "#57bcff" }} />;
     } else {
       return false;
     }

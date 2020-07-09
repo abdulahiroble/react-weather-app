@@ -55,7 +55,7 @@ const WeatherState = (props) => {
       Geo.lng = position.coords.longitude;
 
       let res = await axios.get(
-        `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/${Geo.lat}, ${Geo.lng}/`
+        `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.REACT_APP_API_KEY}/${Geo.lat}, ${Geo.lng}/`
       );
 
       // Fetching the data
@@ -80,7 +80,7 @@ const WeatherState = (props) => {
     setLoading();
 
     const response = await axios.get(
-      `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/c5dd4d4949520c4f85675def7c5a3a41/24.0000, 54.0000`
+      `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.REACT_APP_API_KEY}/24.0000, 54.0000`
     );
 
     console.log(response);
