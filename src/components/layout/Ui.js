@@ -6,7 +6,6 @@ const Ui = () => {
   useEffect(() => {
     weatherContext.showData();
     weatherContext.test();
-    // weatherContext.showPosition();
   }, []);
 
   // Initalize weatherContext
