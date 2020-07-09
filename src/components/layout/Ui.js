@@ -6,7 +6,6 @@ const Ui = () => {
   useEffect(() => {
     weatherContext.showData();
     weatherContext.test();
-    // weatherContext.getLocation();
     // weatherContext.showPosition();
   }, []);
 
